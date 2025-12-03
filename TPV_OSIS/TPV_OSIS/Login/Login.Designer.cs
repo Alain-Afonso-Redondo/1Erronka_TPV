@@ -2,13 +2,13 @@
 {
     partial class Login
     {
-        
+
         private System.ComponentModel.IContainer components = null;
 
-    
-       
-     
-      
+
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,7 +20,7 @@
 
         #region Código generado por el Diseñador de Windows Forms
 
-       
+
         private void InitializeComponent()
         {
             this.txbErab = new System.Windows.Forms.TextBox();
@@ -122,4 +122,3 @@
         private System.Windows.Forms.Label lblMezua;
     }
 }
-

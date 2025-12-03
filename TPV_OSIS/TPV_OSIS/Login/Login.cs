@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,10 +33,10 @@ namespace TPV_OSIS
 
             if (loginBalidatu)
             {
-                MessageBox.Show("Ondo logeatu zara! Ongi etorri "+erabiltzailea, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Ondo logeatu zara! Ongi etorri " + erabiltzailea, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Hide();
 
-                var saioahasi = new Login(); 
+                var saioahasi = new Login();
                 saioahasi.Show();
             }
             else

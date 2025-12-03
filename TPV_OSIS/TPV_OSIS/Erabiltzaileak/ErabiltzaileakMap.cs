@@ -11,7 +11,7 @@ namespace TPV_OSIS
     {
         ErabiltzaileakMap()
         {
-            Table("Erabiltzaileak"); 
+            Table("Erabiltzaileak");
             Id(x => x.Id).GeneratedBy.Identity();
             Map(x => x.Erabiltzailea);
             Map(x => x.Pasahitza);
