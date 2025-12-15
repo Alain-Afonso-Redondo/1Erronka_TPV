@@ -115,6 +115,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Erabiltzaileak\ErabiltzaileController.cs" />
+    <Compile Include="Txat\TxatForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Txat\TxatForm.Designer.cs">
+      <DependentUpon>TxatForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NHibernate\NHibernateHelper.cs" />
     <Compile Include="Erabiltzaileak\ErabiltzaileakMap.cs" />
     <Compile Include="Erabiltzaileak\Erabiltzaileak.cs" />

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,12 +17,12 @@ namespace TPV_OSIS
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Login_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void btnSartu_Click(object sender, EventArgs e)
+        private void btnSartu_Klik(object sender, EventArgs e)
         {
             string erabiltzailea = txbErab.Text.Trim();
             string pasahitza = txbPasa.Text.Trim();
@@ -33,17 +32,22 @@ namespace TPV_OSIS
 
             if (loginBalidatu)
             {
-                MessageBox.Show("Ondo logeatu zara! Ongi etorri " + erabiltzailea, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Hide();
+                MessageBox.Show("Ondo logeatu zara! Ongi etorri " + erabiltzailea,
+                    "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                var saioahasi = new Login();
-                saioahasi.Show();
+                
+                var txat = new TxatForm(erabiltzailea);
+                txat.Show();
+
+                this.Hide();
             }
             else
             {
-                lblMezua.Text = "Erabiltzaile edo pasahitza okerrak.";
+                lblMezua.Text = "Erabiltzaile edo pasahitza okerra.";
                 lblMezua.ForeColor = Color.Red;
             }
         }
+
+
     }
 }
