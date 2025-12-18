@@ -2,123 +2,102 @@
 {
     partial class Login
     {
-
         private System.ComponentModel.IContainer components = null;
-
-
-
-
 
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
         #region Código generado por el Diseñador de Windows Forms
 
-
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources =
+                new System.ComponentModel.ComponentResourceManager(typeof(Login));
+
             this.txbErab = new System.Windows.Forms.TextBox();
             this.txbPasa = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSartu = new System.Windows.Forms.Button();
             this.lblMezua = new System.Windows.Forms.Label();
+            this.pboxLogo = new System.Windows.Forms.PictureBox();
+
+            ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
             this.SuspendLayout();
-            // 
-            // txbErab
-            // 
-            this.txbErab.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txbErab.Location = new System.Drawing.Point(150, 98);
-            this.txbErab.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.txbErab.Name = "txbErab";
-            this.txbErab.Size = new System.Drawing.Size(151, 25);
-            this.txbErab.TabIndex = 0;
-            // 
-            // txbPasa
-            // 
-            this.txbPasa.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txbPasa.Location = new System.Drawing.Point(150, 154);
-            this.txbPasa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.txbPasa.Name = "txbPasa";
-            this.txbPasa.PasswordChar = '*';
-            this.txbPasa.Size = new System.Drawing.Size(151, 25);
-            this.txbPasa.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(150, 77);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 19);
-            this.label1.TabIndex = 2;
+
+            // ===== FORM =====
+            this.BackColor = System.Drawing.Color.FromArgb(245, 245, 245);
+            this.ClientSize = new System.Drawing.Size(600, 420);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "OSIS TPV - Sarrera";
+
+            // ===== LOGO =====
+            this.pboxLogo.Image = ((System.Drawing.Image)(resources.GetObject("pboxLogo.Image")));
+            this.pboxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pboxLogo.Location = new System.Drawing.Point(150, 20);
+            this.pboxLogo.Size = new System.Drawing.Size(300, 120);
+            this.pboxLogo.BackColor = System.Drawing.Color.Transparent;
+
+            // ===== LABEL ERABILTZAILEA =====
             this.label1.Text = "Erabiltzailea";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(150, 134);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 19);
-            this.label2.TabIndex = 3;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
+            this.label1.Location = new System.Drawing.Point(200, 150);
+
+            // ===== TXB ERABILTZAILEA =====
+            this.txbErab.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txbErab.Location = new System.Drawing.Point(200, 175);
+            this.txbErab.Size = new System.Drawing.Size(200, 30);
+
+            // ===== LABEL PASAHITZA =====
             this.label2.Text = "Pasahitza";
-            // 
-            // btnSartu
-            // 
-            this.btnSartu.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnSartu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSartu.ForeColor = System.Drawing.Color.White;
-            this.btnSartu.Location = new System.Drawing.Point(150, 195);
-            this.btnSartu.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnSartu.Name = "btnSartu";
-            this.btnSartu.Size = new System.Drawing.Size(150, 28);
-            this.btnSartu.TabIndex = 4;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
+            this.label2.Location = new System.Drawing.Point(200, 215);
+
+            // ===== TXB PASAHITZA =====
+            this.txbPasa.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txbPasa.PasswordChar = '●';
+            this.txbPasa.Location = new System.Drawing.Point(200, 240);
+            this.txbPasa.Size = new System.Drawing.Size(200, 30);
+
+            // ===== BOTOIA SARTU =====
             this.btnSartu.Text = "Sartu";
-            this.btnSartu.UseVisualStyleBackColor = false;
+            this.btnSartu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnSartu.BackColor = System.Drawing.Color.FromArgb(31, 107, 58);
+            this.btnSartu.ForeColor = System.Drawing.Color.White;
+            this.btnSartu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSartu.FlatAppearance.BorderSize = 0;
+            this.btnSartu.Location = new System.Drawing.Point(200, 290);
+            this.btnSartu.Size = new System.Drawing.Size(200, 35);
             this.btnSartu.Click += new System.EventHandler(this.btnSartu_Klik);
-            // 
-            // lblMezua
-            // 
-            this.lblMezua.AutoSize = true;
+
+            // ===== MEZUA =====
             this.lblMezua.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
             this.lblMezua.ForeColor = System.Drawing.Color.Red;
-            this.lblMezua.Location = new System.Drawing.Point(150, 236);
-            this.lblMezua.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblMezua.Name = "lblMezua";
-            this.lblMezua.Size = new System.Drawing.Size(0, 15);
-            this.lblMezua.TabIndex = 5;
-            // 
-            // Login
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(450, 325);
-            this.Controls.Add(this.lblMezua);
-            this.Controls.Add(this.btnSartu);
-            this.Controls.Add(this.label2);
+            this.lblMezua.Location = new System.Drawing.Point(200, 335);
+            this.lblMezua.Size = new System.Drawing.Size(200, 20);
+            this.lblMezua.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+            // ===== ADD CONTROLS =====
+            this.Controls.Add(this.pboxLogo);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txbPasa);
             this.Controls.Add(this.txbErab);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "Login";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Login";
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txbPasa);
+            this.Controls.Add(this.btnSartu);
+            this.Controls.Add(this.lblMezua);
+
             this.Load += new System.EventHandler(this.Login_Load);
+
+            ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
-
 
         #endregion
 
@@ -128,5 +107,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSartu;
         private System.Windows.Forms.Label lblMezua;
+        private System.Windows.Forms.PictureBox pboxLogo;
     }
 }

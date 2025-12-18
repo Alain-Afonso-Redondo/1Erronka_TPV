@@ -115,6 +115,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Erabiltzaileak\ErabiltzaileController.cs" />
+    <Compile Include="Eskaerak\Erreserbak\ErreserbakMap.cs" />
+    <Compile Include="Eskaerak\Erreserbak\Erreserbak.cs" />
+    <Compile Include="Eskaerak\EskaerakForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Eskaerak\EskaerakForm.Designer.cs">
+      <DependentUpon>EskaerakForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Eskaerak\Fakturak\Fakturak.cs" />
+    <Compile Include="Eskaerak\Fakturak\FakturakMap.cs" />
+    <Compile Include="Eskaerak\Karritoa.cs" />
+    <Compile Include="Eskaerak\Platerak\Platerak.cs" />
+    <Compile Include="Eskaerak\Platerak\PlaterakMap.cs" />
+    <Compile Include="Eskaerak\Komandak\KomandakMap.cs" />
+    <Compile Include="Eskaerak\Komandak\Komandak.cs" />
+    <Compile Include="Eskaerak\Kategoriak\KategoriakMap.cs" />
+    <Compile Include="Eskaerak\Kategoriak\Kategoriak.cs" />
     <Compile Include="Txat\TxatForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,7 +160,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Txat\TxatForm.resx">
+      <DependentUpon>TxatForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -158,6 +179,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Properties\Zakarrontzia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Logo_Osis_Sales.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

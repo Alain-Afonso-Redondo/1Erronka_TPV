@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TPV_OSIS.Eskaerak;
 
 namespace TPV_OSIS
 {
@@ -36,8 +37,8 @@ namespace TPV_OSIS
                     "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 
-                var txat = new TxatForm(erabiltzailea);
-                txat.Show();
+                var eskaerak= new EskaerakForm(erabiltzailea);
+                eskaerak.Show();
 
                 this.Hide();
             }
@@ -48,6 +49,9 @@ namespace TPV_OSIS
             }
         }
 
+        private void pboxLogo_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

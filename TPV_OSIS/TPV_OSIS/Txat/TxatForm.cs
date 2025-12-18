@@ -30,7 +30,7 @@ namespace TPV_OSIS
         {
             try
             {
-                erabiltzailea = new TcpClient("192.168.115.162", 5555);
+                erabiltzailea = new TcpClient("192.168.2.101", 5555);
                 var ns = erabiltzailea.GetStream();
 
                 irakurlea = new StreamReader(ns);

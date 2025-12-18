@@ -1,12 +1,7 @@
 ﻿using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
-using NHibernate.Tool.hbm2ddl;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TPV_OSIS.Eskaerak;
 
 namespace TPV_OSIS
 {
@@ -30,14 +25,17 @@ namespace TPV_OSIS
                 .Database(
                     MySQLConfiguration.Standard
                         .ConnectionString(cs => cs
-                            .Server("192.168.115.162")
+                            .Server("192.168.2.101")
                             .Database("erronka1")
                             .Username("2Taldea")
                             .Password("2Taldea2")
                         )
                 )
                 .Mappings(m =>
-                    m.FluentMappings.AddFromAssemblyOf<ErabiltzaileakMap>())
+                {
+                    
+                    m.FluentMappings.AddFromAssemblyOf<PlaterakMap>();
+                })
                 .BuildSessionFactory();
         }
 
@@ -45,7 +43,5 @@ namespace TPV_OSIS
         {
             return SessionFactory.OpenSession();
         }
-
     }
-
 }

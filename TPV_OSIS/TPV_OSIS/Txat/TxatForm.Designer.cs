@@ -7,9 +7,7 @@
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
@@ -26,54 +24,66 @@
             // lblErabiltzaile
             // 
             this.lblErabiltzaile.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblErabiltzaile.Location = new System.Drawing.Point(12, 9);
+            this.lblErabiltzaile.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblErabiltzaile.Location = new System.Drawing.Point(12, 10);
             this.lblErabiltzaile.Name = "lblErabiltzaile";
-            this.lblErabiltzaile.Size = new System.Drawing.Size(350, 30);
+            this.lblErabiltzaile.Size = new System.Drawing.Size(400, 30);
             this.lblErabiltzaile.TabIndex = 0;
-            this.lblErabiltzaile.Text = "Erabiltzaile";
+            this.lblErabiltzaile.Text = "Erabiltzailea";
             // 
             // txtMezuak
             // 
+            this.txtMezuak.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.txtMezuak.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtMezuak.ForeColor = System.Drawing.Color.Black;
             this.txtMezuak.Location = new System.Drawing.Point(12, 45);
             this.txtMezuak.Multiline = true;
             this.txtMezuak.Name = "txtMezuak";
             this.txtMezuak.ReadOnly = true;
             this.txtMezuak.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtMezuak.Size = new System.Drawing.Size(560, 320);
+            this.txtMezuak.Size = new System.Drawing.Size(560, 300);
             this.txtMezuak.TabIndex = 1;
             // 
             // txtInput
             // 
-            this.txtInput.Location = new System.Drawing.Point(12, 375);
+            this.txtInput.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtInput.Location = new System.Drawing.Point(12, 360);
             this.txtInput.Name = "txtInput";
-            this.txtInput.Size = new System.Drawing.Size(460, 22);
+            this.txtInput.Size = new System.Drawing.Size(450, 30);
             this.txtInput.TabIndex = 2;
             // 
             // btnBidali
             // 
-            this.btnBidali.Location = new System.Drawing.Point(480, 371);
+            this.btnBidali.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(107)))), ((int)(((byte)(58)))));
+            this.btnBidali.FlatAppearance.BorderSize = 0;
+            this.btnBidali.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBidali.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnBidali.ForeColor = System.Drawing.Color.White;
+            this.btnBidali.Location = new System.Drawing.Point(470, 355);
             this.btnBidali.Name = "btnBidali";
-            this.btnBidali.Size = new System.Drawing.Size(92, 30);
+            this.btnBidali.Size = new System.Drawing.Size(100, 35);
             this.btnBidali.TabIndex = 3;
             this.btnBidali.Text = "Bidali";
-            this.btnBidali.UseVisualStyleBackColor = true;
+            this.btnBidali.UseVisualStyleBackColor = false;
             this.btnBidali.Click += new System.EventHandler(this.btnBidali_Klik);
             // 
             // TxatForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 411);
-            this.Controls.Add(this.btnBidali);
-            this.Controls.Add(this.txtInput);
-            this.Controls.Add(this.txtMezuak);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.ClientSize = new System.Drawing.Size(600, 430);
             this.Controls.Add(this.lblErabiltzaile);
+            this.Controls.Add(this.txtMezuak);
+            this.Controls.Add(this.txtInput);
+            this.Controls.Add(this.btnBidali);
+            this.MaximizeBox = false;
             this.Name = "TxatForm";
-            this.Text = "Txat";
-            this.Load += new System.EventHandler(this.TxatForm_Load);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "OSIS - Txata";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TxatForm_FormClosing);
+            this.Load += new System.EventHandler(this.TxatForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
