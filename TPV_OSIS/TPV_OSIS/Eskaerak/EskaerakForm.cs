@@ -170,7 +170,7 @@ namespace TPV_OSIS.Eskaerak
                     Location = new Point(10, 40)
                 };
 
-                Label lblkantitateaObjetua = new Label
+                Label lblPrezioaObjetuko = new Label
                 {
                     Text = $"{objetua.Totala:0.00} €",
                     Font = new Font("Segoe UI", 9, FontStyle.Bold),
@@ -234,7 +234,7 @@ namespace TPV_OSIS.Eskaerak
 
                 panel.Controls.Add(lblIzena);
                 panel.Controls.Add(lblKantitatea);
-                panel.Controls.Add(lblkantitateaObjetua);
+                panel.Controls.Add(lblPrezioaObjetuko);
                 panel.Controls.Add(btnPlus);
                 panel.Controls.Add(btnMinus);
                 panel.Controls.Add(btnEzabatu);
