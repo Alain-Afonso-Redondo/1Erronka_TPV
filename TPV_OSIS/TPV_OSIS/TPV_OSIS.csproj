@@ -115,23 +115,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Erabiltzaileak\ErabiltzaileController.cs" />
-    <Compile Include="Eskaerak\Erreserbak\ErreserbakMap.cs" />
-    <Compile Include="Eskaerak\Erreserbak\Erreserbak.cs" />
-    <Compile Include="Eskaerak\EskaerakForm.cs">
+    <Compile Include="Eskariak\Erreserbak\ErreserbakMap.cs" />
+    <Compile Include="Eskariak\Erreserbak\Erreserbak.cs" />
+    <Compile Include="Eskariak\EskaerakForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Eskaerak\EskaerakForm.Designer.cs">
+    <Compile Include="Eskariak\EskaerakForm.Designer.cs">
       <DependentUpon>EskaerakForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Eskaerak\Fakturak\Fakturak.cs" />
-    <Compile Include="Eskaerak\Fakturak\FakturakMap.cs" />
-    <Compile Include="Eskaerak\Karritoa.cs" />
-    <Compile Include="Eskaerak\Platerak\Platerak.cs" />
-    <Compile Include="Eskaerak\Platerak\PlaterakMap.cs" />
-    <Compile Include="Eskaerak\Komandak\KomandakMap.cs" />
-    <Compile Include="Eskaerak\Komandak\Komandak.cs" />
-    <Compile Include="Eskaerak\Kategoriak\KategoriakMap.cs" />
-    <Compile Include="Eskaerak\Kategoriak\Kategoriak.cs" />
+    <Compile Include="Eskariak\Fakturak\Fakturak.cs" />
+    <Compile Include="Eskariak\Fakturak\FakturakMap.cs" />
+    <Compile Include="Eskariak\Karritoa.cs" />
+    <Compile Include="Eskariak\Mahaiak\MahaiakMap.cs" />
+    <Compile Include="Eskariak\Mahaiak\Mahaiak.cs" />
+    <Compile Include="Inbentarioa\Osagaiak\OsagaiakMap.cs" />
+    <Compile Include="Inbentarioa\Osagaiak\Osagaiak.cs" />
+    <Compile Include="Eskariak\Platerak\Platerak.cs" />
+    <Compile Include="Eskariak\Platerak\PlaterakMap.cs" />
+    <Compile Include="Eskariak\Komandak\KomandakMap.cs" />
+    <Compile Include="Eskariak\Komandak\Komandak.cs" />
+    <Compile Include="Eskariak\Kategoriak\KategoriakMap.cs" />
+    <Compile Include="Eskariak\Kategoriak\Kategoriak.cs" />
+    <Compile Include="Inbentarioa\InbentarioaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inbentarioa\InbentarioaForm.Designer.cs">
+      <DependentUpon>InbentarioaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menua\MenuaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menua\MenuaForm.Designer.cs">
+      <DependentUpon>MenuaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Txat\TxatForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +167,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menua\MenuaForm.resx">
+      <DependentUpon>MenuaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

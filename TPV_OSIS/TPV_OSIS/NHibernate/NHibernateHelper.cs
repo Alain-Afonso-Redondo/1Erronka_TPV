@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
-using TPV_OSIS.Eskaerak;
+using TPV_OSIS.Eskariak;
 
 namespace TPV_OSIS
 {

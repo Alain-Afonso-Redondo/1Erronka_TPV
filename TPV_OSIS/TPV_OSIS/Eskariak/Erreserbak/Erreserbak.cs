@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TPV_OSIS.Eskaerak
+namespace TPV_OSIS.Eskariak
 {
     public class Erreserbak
     {

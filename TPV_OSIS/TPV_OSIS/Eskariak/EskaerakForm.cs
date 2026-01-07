@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace TPV_OSIS.Eskaerak
+namespace TPV_OSIS.Eskariak
 {
     public partial class EskaerakForm : Form
     {

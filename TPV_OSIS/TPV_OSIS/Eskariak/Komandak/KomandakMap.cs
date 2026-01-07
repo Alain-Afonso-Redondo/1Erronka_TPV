@@ -1,14 +1,12 @@
 ﻿using FluentNHibernate.Mapping;
 
-namespace TPV_OSIS.Eskaerak
+namespace TPV_OSIS.Eskariak
 {
     public class KomandakMap : ClassMap<Komandak>
     {
         public KomandakMap()
         {
             Table("Komandak");
-
-          
             CompositeId()
                 .KeyProperty(x => x.Id, "id")
                 .KeyReference(x => x.Platerak, "platerak_id");

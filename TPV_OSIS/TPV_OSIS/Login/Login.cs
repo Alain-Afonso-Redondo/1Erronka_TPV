@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TPV_OSIS.Eskaerak;
+using TPV_OSIS.Inbentarioa;
+using TPV_OSIS.Menua;
 
 namespace TPV_OSIS
 {
@@ -37,8 +38,8 @@ namespace TPV_OSIS
                     "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 
-                var eskaerak= new EskaerakForm(erabiltzailea);
-                eskaerak.Show();
+                var menua = new MenuaForm(erabiltzailea);
+                menua.Show();
 
                 this.Hide();
             }

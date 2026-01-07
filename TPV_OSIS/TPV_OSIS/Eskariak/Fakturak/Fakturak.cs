@@ -1,4 +1,4 @@
-﻿namespace TPV_OSIS.Eskaerak {
+﻿namespace TPV_OSIS.Eskariak {
     public class Fakturak
     {
         public virtual int Id { get; set; }

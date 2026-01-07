@@ -1,4 +1,4 @@
-﻿namespace TPV_OSIS.Eskaerak
+﻿namespace TPV_OSIS.Eskariak
 {
     partial class EskaerakForm
     {

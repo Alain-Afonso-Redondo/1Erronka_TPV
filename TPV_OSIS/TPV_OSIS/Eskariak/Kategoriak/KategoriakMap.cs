@@ -1,6 +1,6 @@
 ﻿using FluentNHibernate.Mapping;
 
-namespace TPV_OSIS.Eskaerak
+namespace TPV_OSIS.Eskariak
 {
     public class KategoriakMap : ClassMap<Kategoriak>
     {

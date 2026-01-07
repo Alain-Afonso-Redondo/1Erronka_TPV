@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPV_OSIS.Eskaerak
+namespace TPV_OSIS.Eskariak
 {
     public class FakturakMap : ClassMap <Fakturak>
     {
