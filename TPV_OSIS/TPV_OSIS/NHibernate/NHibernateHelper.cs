@@ -2,6 +2,7 @@
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using TPV_OSIS.Eskariak;
+using TPV_OSIS.Inbentarioa;
 
 namespace TPV_OSIS
 {
@@ -34,7 +35,7 @@ namespace TPV_OSIS
                 .Mappings(m =>
                 {
                     
-                    m.FluentMappings.AddFromAssemblyOf<PlaterakMap>();
+                    m.FluentMappings.AddFromAssemblyOf<NHibernateHelper>();
                 })
                 .BuildSessionFactory();
         }

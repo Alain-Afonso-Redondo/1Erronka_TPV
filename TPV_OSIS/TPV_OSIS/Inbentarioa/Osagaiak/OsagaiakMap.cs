@@ -1,9 +1,4 @@
 ﻿using FluentNHibernate.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TPV_OSIS.Inbentarioa
 {
@@ -12,12 +7,25 @@ namespace TPV_OSIS.Inbentarioa
         public OsagaiakMap()
         {
             Table("Osagaiak");
-            Id(x => x.Id).GeneratedBy.Identity();
-            Map(x => x.Izena);
-            Map(x => x.azkenPrezioa);
-            Map(x => x.Stock);
-            Map(x => x.gutxienekoStock);
-            Map(x => x.eskatu);
+
+            Id(x => x.Id)
+                .Column("id")
+                .GeneratedBy.Identity();
+
+            Map(x => x.Izena)
+                .Column("izena");
+
+            Map(x => x.azkenPrezioa)
+                .Column("azken_prezioa");
+
+            Map(x => x.Stock)
+                .Column("stock");
+
+            Map(x => x.gutxienekoStock)
+                .Column("gutxieneko_stock");
+
+            Map(x => x.eskatu)
+                .Column("eskatu");
         }
     }
 }

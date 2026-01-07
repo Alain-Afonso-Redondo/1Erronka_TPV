@@ -2,38 +2,36 @@
 {
     partial class InbentarioaForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.FlowLayoutPanel flpOsagaiak;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
-        }
+            this.flpOsagaiak = new System.Windows.Forms.FlowLayoutPanel();
+            this.SuspendLayout();
 
-        #endregion
+            // ====== FLOWLAYOUT OSAGAIAK ======
+            this.flpOsagaiak.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpOsagaiak.AutoScroll = true;
+            this.flpOsagaiak.Padding = new System.Windows.Forms.Padding(20);
+            this.flpOsagaiak.BackColor = System.Drawing.Color.FromArgb(245, 247, 246);
+
+            // ====== FORM ======
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(900, 500);
+            this.Controls.Add(this.flpOsagaiak);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Inbentarioa - Osagaiak";
+            this.Load += new System.EventHandler(this.InbentarioaForm_Load);
+
+            this.ResumeLayout(false);
+        }
     }
 }
