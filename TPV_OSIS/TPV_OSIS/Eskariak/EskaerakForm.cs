@@ -90,7 +90,8 @@ namespace TPV_OSIS.Eskariak
                     Label lblPrezioa = new Label
                     {
                         Text = $"{p.Prezioa:0.00} €",
-                        Location = new Point(10, 40)
+                        Location = new Point(10, 40),
+                        Height = 15
                     };
 
                     Label lblStock = new Label
@@ -167,7 +168,7 @@ namespace TPV_OSIS.Eskariak
                 {
                     Text = $"x{objetua.Kopurua}",
                     ForeColor = Color.Black,
-                    Location = new Point(10, 40)
+                    Location = new Point(20, 40)
                 };
 
                 Label lblPrezioaObjetuko = new Label

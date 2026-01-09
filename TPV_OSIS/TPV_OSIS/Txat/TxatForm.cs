@@ -56,13 +56,13 @@ namespace TPV_OSIS
                 string lerroa;
                 while ((lerroa = irakurlea.ReadLine()) != null)
                 {
-                    ezarriMezua(lerroa);
+                    idatziMezua(lerroa);
                 }
             }
             catch { }
         }
 
-        private void ezarriMezua(string msg)
+        private void idatziMezua(string msg)
         {
             if (txtMezuak.InvokeRequired)
             {

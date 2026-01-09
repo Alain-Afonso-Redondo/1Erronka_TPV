@@ -38,7 +38,7 @@ namespace TPV_OSIS.Inbentarioa
         {
             Panel panel = new Panel
             {
-                Width = 800,
+                Width = 715,
                 Height = 80,
                 Margin = new Padding(10),
                 BackColor = Color.White,
