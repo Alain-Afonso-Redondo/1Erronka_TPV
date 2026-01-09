@@ -78,12 +78,13 @@ namespace TPV_OSIS.Inbentarioa
 
             Label lblEskatu = new Label
             {
-                Text = o.eskatu ? "ESKATUTA" : "",
+                Text = (o.eskatu || o.Stock == 0) ? "ESKATU!!" : "",
                 ForeColor = Color.DarkOrange,
                 Font = new Font("Segoe UI", 9, FontStyle.Bold),
                 Location = new Point(500, 30),
                 AutoSize = true
             };
+
 
             if (o.Stock <= o.gutxienekoStock)
             {
@@ -97,8 +98,12 @@ namespace TPV_OSIS.Inbentarioa
                 lblPrezioa.ForeColor = Color.FromArgb(255, 255, 255);
                 lblStock.ForeColor = Color.FromArgb(255, 255, 255);
                 lblStockMin.ForeColor = Color.FromArgb(255, 255, 255);
+                
+                
 
             }
+
+            
 
             panel.Controls.Add(lblIzena);
             panel.Controls.Add(lblPrezioa);

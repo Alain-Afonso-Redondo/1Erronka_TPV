@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TPV_OSIS.Eskariak;
 
 namespace TPV_OSIS.Eskariak
 {
@@ -144,7 +145,7 @@ namespace TPV_OSIS.Eskariak
         {
             flpKarritoa.Controls.Clear();
 
-            foreach (var objetua in karritoa)
+            foreach (var produktuKarrito in karritoa)
             {
                 Panel panel = new Panel
                 {
@@ -157,7 +158,7 @@ namespace TPV_OSIS.Eskariak
 
                 Label lblIzena = new Label
                 {
-                    Text = objetua.Izena,
+                    Text = produktuKarrito.Izena,
                     Font = new Font("Segoe UI", 9, FontStyle.Bold),
                     ForeColor = Color.Black,
                     Location = new Point(10, 10),
@@ -166,14 +167,14 @@ namespace TPV_OSIS.Eskariak
 
                 Label lblKantitatea = new Label
                 {
-                    Text = $"x{objetua.Kopurua}",
+                    Text = $"x{produktuKarrito.Kopurua}",
                     ForeColor = Color.Black,
                     Location = new Point(20, 40)
                 };
 
                 Label lblPrezioaObjetuko = new Label
                 {
-                    Text = $"{objetua.Totala:0.00} €",
+                    Text = $"{produktuKarrito.Totala:0.00} €",
                     Font = new Font("Segoe UI", 9, FontStyle.Bold),
                     ForeColor = Color.Black,
                     Size = new Size(55, 20),
@@ -215,21 +216,21 @@ namespace TPV_OSIS.Eskariak
 
                 btnPlus.Click += (s, e) =>
                 {
-                    objetua.Kopurua++;
+                    produktuKarrito.Kopurua++;
                     eguneratuKarritoa();
                 };
 
                 btnMinus.Click += (s, e) =>
                 {
-                    objetua.Kopurua--;
-                    if (objetua.Kopurua <= 0)
-                        karritoa.Remove(objetua);
+                    produktuKarrito.Kopurua--;
+                    if (produktuKarrito.Kopurua <= 0)
+                        karritoa.Remove(produktuKarrito);
                     eguneratuKarritoa();
                 };
 
                 btnEzabatu.Click += (s, e) =>
                 {
-                    karritoa.Remove(objetua);
+                    karritoa.Remove(produktuKarrito);
                     eguneratuKarritoa();
                 };
 
@@ -250,6 +251,51 @@ namespace TPV_OSIS.Eskariak
         private void btnEskatu_Klik(object sender, EventArgs e)
         {
             using (var session = NHibernateHelper.OpenSession())
+            {
+                foreach (var produktuKarrito in karritoa)
+                {
+                    var platera = session.Get<Platerak>(produktuKarrito.PlaterakId);
+
+                    
+                    if (platera.Stock < produktuKarrito.Kopurua)
+                    {
+                        MessageBox.Show(
+                            $"Ez dago stock nahikorik plater honentzat:\n\n{platera.Izena}",
+                            "Stock gutxiegi",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        return;
+                    }
+
+                    
+                    var osagaiakPlatera = session.Query<PlateraOsagaiak>()
+                        .Where(po => po.Platera.Id == platera.Id)
+                        .ToList();
+
+                    foreach (var po in osagaiakPlatera)
+                    {
+                        int beharrezkoa = po.Kopurua * produktuKarrito.Kopurua;
+
+                        if (po.Osagaia.Stock < beharrezkoa)
+                        {
+                            MessageBox.Show(
+                                $"Ezin da eskaria egin.\n\n" +
+                                $"Osagaia falta da:\n{po.Osagaia.Izena}\n\n" +
+                                $"Beharrezkoa: {beharrezkoa}\n" +
+                                $"Eskuragarri: {po.Osagaia.Stock}",
+                                "Stock gutxiegi",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+                            return;
+                        }
+                    }
+                }
+            }
+
+            // ================= KOMANDA =================
+            using (var session = NHibernateHelper.OpenSession())
             using (var tx = session.BeginTransaction())
             {
                 int eskariaId = session.Query<Komandak>()
@@ -257,25 +303,41 @@ namespace TPV_OSIS.Eskariak
                     .Max() ?? 0;
                 eskariaId++;
 
-                foreach (var objetua in karritoa)
+                foreach (var produktuKarrito in karritoa)
                 {
-                    var platera = session.Get<Platerak>(objetua.PlaterakId);
+                    var platera = session.Get<Platerak>(produktuKarrito.PlaterakId);
 
+                    
                     Komandak k = new Komandak
                     {
                         Id = eskariaId,
                         Platerak = platera,
                         FakturakId = 1,
-                        Kopurua = objetua.Kopurua,
-                        Totala = objetua.Totala
+                        Kopurua = produktuKarrito.Kopurua,
+                        Totala = produktuKarrito.Totala
                     };
 
                     session.Save(k);
 
-                    platera.Stock -= objetua.Kopurua;
+                    
+                    platera.Stock -= produktuKarrito.Kopurua;
                     session.Update(platera);
+
+                    
+                    var osagaiakPlatera = session.Query<PlateraOsagaiak>()
+                        .Where(po => po.Platera.Id == platera.Id)
+                        .ToList();
+
+                    foreach (var po in osagaiakPlatera)
+                    {
+                        int kontsumoa = po.Kopurua *produktuKarrito.Kopurua;
+                        po.Osagaia.Stock -= kontsumoa;
+
+                        session.Update(po.Osagaia);
+                    }
                 }
 
+                
                 var faktura = session.Get<Fakturak>(1);
                 faktura.Totala += karritoa.Sum(c => c.Totala);
                 session.Update(faktura);
@@ -288,6 +350,8 @@ namespace TPV_OSIS.Eskariak
             eguneratuKarritoa();
             flpPlaterak.Controls.Clear();
         }
+
+
 
         private void btnTxat_Click(object sender, EventArgs e)
         {
