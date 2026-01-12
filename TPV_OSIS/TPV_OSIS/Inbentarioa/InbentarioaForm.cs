@@ -14,6 +14,12 @@ namespace TPV_OSIS.Inbentarioa
             InitializeComponent();
         }
 
+        private void btnFreskatu_Click(object sender, EventArgs e)
+        {
+            kargatuOsagaiak();
+        }
+
+
         private void InbentarioaForm_Load(object sender, EventArgs e)
         {
             kargatuOsagaiak();
@@ -98,13 +104,9 @@ namespace TPV_OSIS.Inbentarioa
                 lblPrezioa.ForeColor = Color.FromArgb(255, 255, 255);
                 lblStock.ForeColor = Color.FromArgb(255, 255, 255);
                 lblStockMin.ForeColor = Color.FromArgb(255, 255, 255);
-                
-                
-
+              
             }
-
             
-
             panel.Controls.Add(lblIzena);
             panel.Controls.Add(lblPrezioa);
             panel.Controls.Add(lblStock);

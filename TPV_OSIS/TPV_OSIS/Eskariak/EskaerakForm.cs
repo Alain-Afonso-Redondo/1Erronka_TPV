@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using TPV_OSIS.Eskariak;
 
 namespace TPV_OSIS.Eskariak
 {
@@ -25,7 +24,7 @@ namespace TPV_OSIS.Eskariak
             kargatuKategoriak();
         }
 
-        // ================= KATEGORIAK =================
+        // ====== KATEGORIAK ======
         private void kargatuKategoriak()
         {
             flpKategoriak.Controls.Clear();
@@ -57,7 +56,7 @@ namespace TPV_OSIS.Eskariak
             }
         }
 
-        // ================= PLATERAK =================
+        // ====== PLATERAK ======
         private void kargatuPlaterakKategoriko(int kategoriaId)
         {
             flpPlaterak.Controls.Clear();
@@ -92,14 +91,20 @@ namespace TPV_OSIS.Eskariak
                     {
                         Text = $"{p.Prezioa:0.00} €",
                         Location = new Point(10, 40),
-                        Height = 15
+                        AutoSize = false,
+                        Size = new Size(160, 18),
+                        TextAlign = ContentAlignment.MiddleLeft
                     };
 
                     Label lblStock = new Label
                     {
                         Text = $"Stock: {p.Stock}",
-                        Location = new Point(10, 60)
+                        Location = new Point(10, 60),
+                        AutoSize = false,
+                        Size = new Size(160, 18),
+                        TextAlign = ContentAlignment.MiddleLeft
                     };
+
 
                     EventHandler clickHandler = (s, e) => gehituKarritora(p);
 
@@ -117,10 +122,68 @@ namespace TPV_OSIS.Eskariak
             }
         }
 
+        // ====== STOCK ======
+        private bool JaitsiStock(int platerId, int kopurua)
+        {
+            using (var session = NHibernateHelper.OpenSession())
+            using (var tx = session.BeginTransaction())
+            {
+                var platera = session.Get<Platerak>(platerId);
+                if (platera.Stock < kopurua) return false;
+
+                platera.Stock -= kopurua;
+                session.Update(platera);
+
+                var osagaiak = session.Query<PlateraOsagaiak>()
+                    .Where(po => po.Platera.Id == platerId)
+                    .ToList();
+
+                foreach (var po in osagaiak)
+                {
+                    int beharrezkoa = po.Kopurua * kopurua;
+                    if (po.Osagaia.Stock < beharrezkoa) return false;
+
+                    po.Osagaia.Stock -= beharrezkoa;
+                    session.Update(po.Osagaia);
+                }
+
+                tx.Commit();
+                return true;
+            }
+        }
+
+        private void ItzuliStock(int platerId, int kopurua)
+        {
+            using (var session = NHibernateHelper.OpenSession())
+            using (var tx = session.BeginTransaction())
+            {
+                var platera = session.Get<Platerak>(platerId);
+                platera.Stock += kopurua;
+                session.Update(platera);
+
+                var osagaiak = session.Query<PlateraOsagaiak>()
+                    .Where(po => po.Platera.Id == platerId)
+                    .ToList();
+
+                foreach (var po in osagaiak)
+                {
+                    po.Osagaia.Stock += po.Kopurua * kopurua;
+                    session.Update(po.Osagaia);
+                }
+
+                tx.Commit();
+            }
+        }
 
         // ================= KARRITOA =================
         private void gehituKarritora(Platerak p)
         {
+            if (!JaitsiStock(p.Id, 1))
+            {
+                MessageBox.Show("Ez dago stock nahikorik");
+                return;
+            }
+
             var produktua = karritoa.FirstOrDefault(x => x.PlaterakId == p.Id);
 
             if (produktua == null)
@@ -160,27 +223,30 @@ namespace TPV_OSIS.Eskariak
                 {
                     Text = produktuKarrito.Izena,
                     Font = new Font("Segoe UI", 9, FontStyle.Bold),
-                    ForeColor = Color.Black,
                     Location = new Point(10, 10),
-                    Width = 200
+                    Width = 200,
+                    AutoSize = false,
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    ForeColor = Color.Black
                 };
 
                 Label lblKantitatea = new Label
                 {
                     Text = $"x{produktuKarrito.Kopurua}",
-                    ForeColor = Color.Black,
-                    Location = new Point(20, 40)
+                    Location = new Point(20, 40),
+                    AutoSize = true,
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    ForeColor = Color.Black
                 };
 
                 Label lblPrezioaObjetuko = new Label
                 {
                     Text = $"{produktuKarrito.Totala:0.00} €",
-                    Font = new Font("Segoe UI", 9, FontStyle.Bold),
-                    ForeColor = Color.Black,
-                    Size = new Size(55, 20),
-                    Location = new Point(250, 40)
+                    Location = new Point(250, 40),
+                    AutoSize = true,
+                    TextAlign = ContentAlignment.MiddleRight,
+                    ForeColor = Color.Black
                 };
-
 
                 Button btnPlus = new Button
                 {
@@ -192,7 +258,7 @@ namespace TPV_OSIS.Eskariak
 
                 Button btnMinus = new Button
                 {
-                    Text = "−",
+                    Text = "−", 
                     Location = new Point(160, 35),
                     Size = new Size(30, 25),
                     ForeColor = Color.Black
@@ -203,33 +269,34 @@ namespace TPV_OSIS.Eskariak
                     Text = "x",
                     Location = new Point(310, 35),
                     Size = new Size(30, 25),
-                    ForeColor = Color.Black,
-                    TextAlign = ContentAlignment.MiddleCenter
+                    ForeColor = Color.Black
                 };
 
-                btnEzabatu.FlatAppearance.BorderSize = 1;
-                btnEzabatu.FlatAppearance.BorderColor = Color.Black;
-                btnEzabatu.FlatAppearance.MouseOverBackColor = Color.FromArgb(242, 140, 56); 
-                btnEzabatu.FlatAppearance.MouseDownBackColor = Color.LightGray;
-               
-
+            
 
                 btnPlus.Click += (s, e) =>
                 {
-                    produktuKarrito.Kopurua++;
-                    eguneratuKarritoa();
+                    if (JaitsiStock(produktuKarrito.PlaterakId, 1))
+                    {
+                        produktuKarrito.Kopurua++;
+                        eguneratuKarritoa();
+                    }
                 };
 
                 btnMinus.Click += (s, e) =>
                 {
+                    ItzuliStock(produktuKarrito.PlaterakId, 1);
                     produktuKarrito.Kopurua--;
+
                     if (produktuKarrito.Kopurua <= 0)
                         karritoa.Remove(produktuKarrito);
+
                     eguneratuKarritoa();
                 };
 
                 btnEzabatu.Click += (s, e) =>
                 {
+                    ItzuliStock(produktuKarrito.PlaterakId, produktuKarrito.Kopurua);
                     karritoa.Remove(produktuKarrito);
                     eguneratuKarritoa();
                 };
@@ -241,60 +308,22 @@ namespace TPV_OSIS.Eskariak
                 panel.Controls.Add(btnMinus);
                 panel.Controls.Add(btnEzabatu);
 
+                
+
                 flpKarritoa.Controls.Add(panel);
             }
 
-            lblTotala.Text = "Totala: " + karritoa.Sum(c => c.Totala).ToString("0.00") + " €";
+            flpKarritoa.PerformLayout();
+
+            lblTotala.Text = "Totala: " +
+                karritoa.Sum(c => c.Totala).ToString("0.00") + " €";
         }
+
+
 
         // ================= ESKARIA =================
         private void btnEskatu_Klik(object sender, EventArgs e)
         {
-            using (var session = NHibernateHelper.OpenSession())
-            {
-                foreach (var produktuKarrito in karritoa)
-                {
-                    var platera = session.Get<Platerak>(produktuKarrito.PlaterakId);
-
-                    
-                    if (platera.Stock < produktuKarrito.Kopurua)
-                    {
-                        MessageBox.Show(
-                            $"Ez dago stock nahikorik plater honentzat:\n\n{platera.Izena}",
-                            "Stock gutxiegi",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
-                        return;
-                    }
-
-                    
-                    var osagaiakPlatera = session.Query<PlateraOsagaiak>()
-                        .Where(po => po.Platera.Id == platera.Id)
-                        .ToList();
-
-                    foreach (var po in osagaiakPlatera)
-                    {
-                        int beharrezkoa = po.Kopurua * produktuKarrito.Kopurua;
-
-                        if (po.Osagaia.Stock < beharrezkoa)
-                        {
-                            MessageBox.Show(
-                                $"Ezin da eskaria egin.\n\n" +
-                                $"Osagaia falta da:\n{po.Osagaia.Izena}\n\n" +
-                                $"Beharrezkoa: {beharrezkoa}\n" +
-                                $"Eskuragarri: {po.Osagaia.Stock}",
-                                "Stock gutxiegi",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning
-                            );
-                            return;
-                        }
-                    }
-                }
-            }
-
-            // ================= KOMANDA =================
             using (var session = NHibernateHelper.OpenSession())
             using (var tx = session.BeginTransaction())
             {
@@ -305,39 +334,18 @@ namespace TPV_OSIS.Eskariak
 
                 foreach (var produktuKarrito in karritoa)
                 {
-                    var platera = session.Get<Platerak>(produktuKarrito.PlaterakId);
-
-                    
                     Komandak k = new Komandak
                     {
                         Id = eskariaId,
-                        Platerak = platera,
+                        Platerak = session.Get<Platerak>(produktuKarrito.PlaterakId),
                         FakturakId = 1,
                         Kopurua = produktuKarrito.Kopurua,
                         Totala = produktuKarrito.Totala
                     };
 
                     session.Save(k);
-
-                    
-                    platera.Stock -= produktuKarrito.Kopurua;
-                    session.Update(platera);
-
-                    
-                    var osagaiakPlatera = session.Query<PlateraOsagaiak>()
-                        .Where(po => po.Platera.Id == platera.Id)
-                        .ToList();
-
-                    foreach (var po in osagaiakPlatera)
-                    {
-                        int kontsumoa = po.Kopurua *produktuKarrito.Kopurua;
-                        po.Osagaia.Stock -= kontsumoa;
-
-                        session.Update(po.Osagaia);
-                    }
                 }
 
-                
                 var faktura = session.Get<Fakturak>(1);
                 faktura.Totala += karritoa.Sum(c => c.Totala);
                 session.Update(faktura);
@@ -350,8 +358,6 @@ namespace TPV_OSIS.Eskariak
             eguneratuKarritoa();
             flpPlaterak.Controls.Clear();
         }
-
-
 
         private void btnTxat_Click(object sender, EventArgs e)
         {

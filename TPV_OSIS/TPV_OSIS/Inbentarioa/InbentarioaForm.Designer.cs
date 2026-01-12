@@ -1,9 +1,14 @@
-﻿namespace TPV_OSIS.Inbentarioa
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace TPV_OSIS.Inbentarioa
 {
     partial class InbentarioaForm
     {
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.FlowLayoutPanel flpOsagaiak;
+        private System.Windows.Forms.Button btnFreskatu;
+
 
         protected override void Dispose(bool disposing)
         {
@@ -15,23 +20,34 @@
         private void InitializeComponent()
         {
             this.flpOsagaiak = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnFreskatu = new System.Windows.Forms.Button();
             this.SuspendLayout();
 
+            // ====== FRESKATU BOTOIA ======
+            this.btnFreskatu.Text = "Freskatu";
+            this.btnFreskatu.Size = new System.Drawing.Size(90, 30);
+            this.btnFreskatu.Location = new System.Drawing.Point(780, 10);
+            this.btnFreskatu.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            this.btnFreskatu.Cursor = Cursors.Hand;
+            this.btnFreskatu.Click += new System.EventHandler(this.btnFreskatu_Click);
+
             // ====== FLOWLAYOUT OSAGAIAK ======
-            this.flpOsagaiak.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpOsagaiak.Dock = DockStyle.Fill;
             this.flpOsagaiak.AutoScroll = true;
-            this.flpOsagaiak.Padding = new System.Windows.Forms.Padding(20);
-            this.flpOsagaiak.BackColor = System.Drawing.Color.FromArgb(245, 247, 246);
+            this.flpOsagaiak.Padding = new Padding(20);
+            this.flpOsagaiak.BackColor = Color.FromArgb(245, 247, 246);
 
             // ====== FORM ======
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 500);
+            this.Controls.Add(this.btnFreskatu);
             this.Controls.Add(this.flpOsagaiak);
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Inbentarioa - Osagaiak";
             this.Load += new System.EventHandler(this.InbentarioaForm_Load);
 
             this.ResumeLayout(false);
         }
+
+
     }
 }
