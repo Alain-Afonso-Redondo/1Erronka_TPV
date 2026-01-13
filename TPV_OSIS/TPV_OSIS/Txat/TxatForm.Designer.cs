@@ -43,6 +43,7 @@
             this.txtMezuak.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtMezuak.Size = new System.Drawing.Size(560, 300);
             this.txtMezuak.TabIndex = 1;
+            
             // 
             // txtInput
             // 
@@ -51,6 +52,7 @@
             this.txtInput.Name = "txtInput";
             this.txtInput.Size = new System.Drawing.Size(450, 30);
             this.txtInput.TabIndex = 2;
+            
             // 
             // btnBidali
             // 
