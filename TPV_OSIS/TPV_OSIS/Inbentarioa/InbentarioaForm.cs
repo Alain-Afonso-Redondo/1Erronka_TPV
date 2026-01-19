@@ -1,4 +1,4 @@
-﻿using NHibernate.Linq;
+﻿
 using System;
 using System.Drawing;
 using System.Linq;
@@ -29,16 +29,15 @@ namespace TPV_OSIS.Inbentarioa
         {
             flpOsagaiak.Controls.Clear();
 
-            using (var session = NHibernateHelper.OpenSession())
-            {
-                var osagaiak = session.Query<Osagaiak>().ToList();
+            var controller = new OsagaiakController();
+            var osagaiak = controller.LortuOsagaiak();
 
-                foreach (var o in osagaiak)
-                {
-                    flpOsagaiak.Controls.Add(sortuOsagaiTxartela(o));
-                }
+            foreach (var o in osagaiak)
+            {
+                flpOsagaiak.Controls.Add(sortuOsagaiTxartela(o));
             }
         }
+
 
         private Control sortuOsagaiTxartela(Osagaiak o)
         {

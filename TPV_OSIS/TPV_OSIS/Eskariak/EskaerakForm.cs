@@ -1,5 +1,4 @@
-﻿using NHibernate.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -24,155 +23,107 @@ namespace TPV_OSIS.Eskariak
             kargatuKategoriak();
         }
 
-        // ====== KATEGORIAK ======
+        // ================= KATEGORIAK =================
         private void kargatuKategoriak()
         {
             flpKategoriak.Controls.Clear();
 
-            using (var session = NHibernateHelper.OpenSession())
+            var kategoriakController = new KategoriakController();
+            var kategoriak = kategoriakController.LortuKategoriak();
+
+            foreach (var cat in kategoriak)
             {
-                var kategoriak = session.Query<Kategoriak>().ToList();
-
-                foreach (var cat in kategoriak)
+                Button btn = new Button
                 {
-                    Button btn = new Button
-                    {
-                        Text = cat.Izena,
-                        Width = 180,
-                        Height = 60,
-                        BackColor = Color.FromArgb(31, 107, 58),
-                        ForeColor = Color.White,
-                        FlatStyle = FlatStyle.Flat,
-                        Tag = cat.Id
-                    };
+                    Text = cat.Izena,
+                    Width = 180,
+                    Height = 60,
+                    BackColor = Color.FromArgb(31, 107, 58),
+                    ForeColor = Color.White,
+                    FlatStyle = FlatStyle.Flat,
+                    Tag = cat.Id
+                };
 
-                    btn.Click += (s, e) =>
-                    {
-                        kargatuPlaterakKategoriko((int)btn.Tag);
-                    };
+                btn.Click += (s, e) =>
+                {
+                    kargatuPlaterakKategoriko((int)btn.Tag);
+                };
 
-                    flpKategoriak.Controls.Add(btn);
-                }
+                flpKategoriak.Controls.Add(btn);
             }
         }
 
-        // ====== PLATERAK ======
+        // ================= PLATERAK =================
         private void kargatuPlaterakKategoriko(int kategoriaId)
         {
             flpPlaterak.Controls.Clear();
 
-            using (var session = NHibernateHelper.OpenSession())
+            var platerakController = new PlaterakController();
+            var platerak = platerakController
+                .LortuPlaterakKategoriatik(kategoriaId)
+                .Where(p => p.Stock > 0)
+                .ToList();
+
+            foreach (var p in platerak)
             {
-                var platerak = session.Query<Platerak>()
-                    .Where(p => p.Kategoriak.Id == kategoriaId && p.Stock > 0)
-                    .ToList();
-
-                foreach (var p in platerak)
+                Panel panel = new Panel
                 {
-                    Panel panel = new Panel
-                    {
-                        Width = 180,
-                        Height = 100,
-                        BackColor = Color.White,
-                        Margin = new Padding(10),
-                        BorderStyle = BorderStyle.FixedSingle,
-                        Cursor = Cursors.Hand
-                    };
+                    Width = 180,
+                    Height = 100,
+                    BackColor = Color.White,
+                    Margin = new Padding(10),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Cursor = Cursors.Hand
+                };
 
-                    Label lblIzena = new Label
-                    {
-                        Text = p.Izena,
-                        Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                        Location = new Point(10, 10),
-                        Width = 160
-                    };
+                Label lblIzena = new Label
+                {
+                    Text = p.Izena,
+                    Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                    Location = new Point(10, 10),
+                    Width = 160
+                };
 
-                    Label lblPrezioa = new Label
-                    {
-                        Text = $"{p.Prezioa:0.00} €",
-                        Location = new Point(10, 40),
-                        AutoSize = false,
-                        Size = new Size(160, 18),
-                        TextAlign = ContentAlignment.MiddleLeft
-                    };
+                Label lblPrezioa = new Label
+                {
+                    Text = $"{p.Prezioa:0.00} €",
+                    Location = new Point(10, 40),
+                    Size = new Size(160, 18)
+                };
 
-                    Label lblStock = new Label
-                    {
-                        Text = $"Stock: {p.Stock}",
-                        Location = new Point(10, 60),
-                        AutoSize = false,
-                        Size = new Size(160, 18),
-                        TextAlign = ContentAlignment.MiddleLeft
-                    };
+                Label lblStock = new Label
+                {
+                    Text = $"Stock: {p.Stock}",
+                    Location = new Point(10, 60),
+                    Size = new Size(160, 18)
+                };
 
+                EventHandler clickHandler = (s, e) => gehituKarritora(p);
 
-                    EventHandler clickHandler = (s, e) => gehituKarritora(p);
+                panel.Click += clickHandler;
+                lblIzena.Click += clickHandler;
+                lblPrezioa.Click += clickHandler;
+                lblStock.Click += clickHandler;
 
-                    panel.Click += clickHandler;
-                    lblIzena.Click += clickHandler;
-                    lblPrezioa.Click += clickHandler;
-                    lblStock.Click += clickHandler;
+                panel.Controls.Add(lblIzena);
+                panel.Controls.Add(lblPrezioa);
+                panel.Controls.Add(lblStock);
 
-                    panel.Controls.Add(lblIzena);
-                    panel.Controls.Add(lblPrezioa);
-                    panel.Controls.Add(lblStock);
-
-                    flpPlaterak.Controls.Add(panel);
-                }
+                flpPlaterak.Controls.Add(panel);
             }
         }
 
-        // ====== STOCK ======
+        // ================= STOCK =================
         private bool JaitsiStock(int platerId, int kopurua)
         {
-            using (var session = NHibernateHelper.OpenSession())
-            using (var tx = session.BeginTransaction())
-            {
-                var platera = session.Get<Platerak>(platerId);
-                if (platera.Stock < kopurua) return false;
-
-                platera.Stock -= kopurua;
-                session.Update(platera);
-
-                var osagaiak = session.Query<PlateraOsagaiak>()
-                    .Where(po => po.Platera.Id == platerId)
-                    .ToList();
-
-                foreach (var po in osagaiak)
-                {
-                    int beharrezkoa = po.Kopurua * kopurua;
-                    if (po.Osagaia.Stock < beharrezkoa) return false;
-
-                    po.Osagaia.Stock -= beharrezkoa;
-                    session.Update(po.Osagaia);
-                }
-
-                tx.Commit();
-                return true;
-            }
+            var platerakController = new PlaterakController();
+            return platerakController.JaitsiStock(platerId, kopurua);
         }
 
         private void ItzuliStock(int platerId, int kopurua)
         {
-            using (var session = NHibernateHelper.OpenSession())
-            using (var tx = session.BeginTransaction())
-            {
-                var platera = session.Get<Platerak>(platerId);
-                platera.Stock += kopurua;
-                session.Update(platera);
-
-                var osagaiak = session.Query<PlateraOsagaiak>()
-                    .Where(po => po.Platera.Id == platerId)
-                    .ToList();
-
-                foreach (var po in osagaiak)
-                {
-                    po.Osagaia.Stock += po.Kopurua * kopurua;
-                    session.Update(po.Osagaia);
-                }
-
-                tx.Commit();
-            }
+            var platerakController = new PlaterakController();
+            platerakController.ItzuliStock(platerId, kopurua);
         }
 
         // ================= KARRITOA =================
@@ -225,8 +176,6 @@ namespace TPV_OSIS.Eskariak
                     Font = new Font("Segoe UI", 9, FontStyle.Bold),
                     Location = new Point(10, 10),
                     Width = 200,
-                    AutoSize = false,
-                    TextAlign = ContentAlignment.MiddleLeft,
                     ForeColor = Color.Black
                 };
 
@@ -234,45 +183,19 @@ namespace TPV_OSIS.Eskariak
                 {
                     Text = $"x{produktuKarrito.Kopurua}",
                     Location = new Point(20, 40),
-                    AutoSize = true,
-                    TextAlign = ContentAlignment.MiddleLeft,
                     ForeColor = Color.Black
                 };
 
-                Label lblPrezioaObjetuko = new Label
+                Label lblPrezioa = new Label
                 {
                     Text = $"{produktuKarrito.Totala:0.00} €",
                     Location = new Point(250, 40),
-                    AutoSize = true,
-                    TextAlign = ContentAlignment.MiddleRight,
                     ForeColor = Color.Black
                 };
 
-                Button btnPlus = new Button
-                {
-                    Text = "+",
-                    Location = new Point(120, 35),
-                    Size = new Size(30, 25),
-                    ForeColor = Color.Black
-                };
-
-                Button btnMinus = new Button
-                {
-                    Text = "−", 
-                    Location = new Point(160, 35),
-                    Size = new Size(30, 25),
-                    ForeColor = Color.Black
-                };
-
-                Button btnEzabatu = new Button
-                {
-                    Text = "x",
-                    Location = new Point(310, 35),
-                    Size = new Size(30, 25),
-                    ForeColor = Color.Black
-                };
-
-            
+                Button btnPlus = new Button { Text = "+", Location = new Point(120, 35), Size = new Size(30, 25), ForeColor = Color.Black };
+                Button btnMinus = new Button { Text = "-", Location = new Point(160, 35), Size = new Size(30, 25), ForeColor = Color.Black };
+                Button btnEzabatu = new Button { Text = "X", Location = new Point(310, 35), Size = new Size(30, 25), ForeColor = Color.Black };
 
                 btnPlus.Click += (s, e) =>
                 {
@@ -303,57 +226,44 @@ namespace TPV_OSIS.Eskariak
 
                 panel.Controls.Add(lblIzena);
                 panel.Controls.Add(lblKantitatea);
-                panel.Controls.Add(lblPrezioaObjetuko);
+                panel.Controls.Add(lblPrezioa);
                 panel.Controls.Add(btnPlus);
                 panel.Controls.Add(btnMinus);
                 panel.Controls.Add(btnEzabatu);
 
-                
-
                 flpKarritoa.Controls.Add(panel);
             }
-
-            flpKarritoa.PerformLayout();
 
             lblTotala.Text = "Totala: " +
                 karritoa.Sum(c => c.Totala).ToString("0.00") + " €";
         }
 
-
-
         // ================= ESKARIA =================
         private void btnEskatu_Klik(object sender, EventArgs e)
         {
-            using (var session = NHibernateHelper.OpenSession())
-            using (var tx = session.BeginTransaction())
+            var komandaController = new KomandakController();
+
+            foreach (var produktuKarrito in karritoa)
             {
-                int eskariaId = session.Query<Komandak>()
-                    .Select(k => (int?)k.Id)
-                    .Max() ?? 0;
-                eskariaId++;
+                bool ok = komandaController.SortuKomanda(
+                    fakturaId: 1,
+                    platerId: produktuKarrito.PlaterakId,
+                    kopurua: produktuKarrito.Kopurua
+                );
 
-                foreach (var produktuKarrito in karritoa)
+                if (!ok)
                 {
-                    Komandak k = new Komandak
-                    {
-                        Id = eskariaId,
-                        Platerak = session.Get<Platerak>(produktuKarrito.PlaterakId),
-                        FakturakId = 1,
-                        Kopurua = produktuKarrito.Kopurua,
-                        Totala = produktuKarrito.Totala
-                    };
-
-                    session.Save(k);
+                    MessageBox.Show("Errorea komanda sortzean");
+                    return;
                 }
-
-                var faktura = session.Get<Fakturak>(1);
-                faktura.Totala += karritoa.Sum(c => c.Totala);
-                session.Update(faktura);
-
-                tx.Commit();
             }
 
+            var fakturaController = new FakturakController();
+
+            fakturaController.EguneratuTotala(1, karritoa.Sum(c => c.Totala));
+
             MessageBox.Show("Komanda behar bezala eginda");
+
             karritoa.Clear();
             eguneratuKarritoa();
             flpPlaterak.Controls.Clear();

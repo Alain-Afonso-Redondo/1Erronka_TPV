@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace TPV_OSIS
 {
@@ -10,13 +9,28 @@ namespace TPV_OSIS
     {
         public bool BalidatuLogin(string erabiltzailea, string pasahitza)
         {
-            using (var session = NHibernateHelper.OpenSession())
+            using (var client = new HttpClient())
             {
-                var erab = session.Query<Erabiltzaileak>()
-                                  .FirstOrDefault(e => e.Erabiltzailea == erabiltzailea && e.Pasahitza == pasahitza);
+                client.BaseAddress = new System.Uri("http://localhost:5000/");
 
-                return erab != null;
+                
+                var response = client.GetAsync("api/Erabiltzailea").Result;
+
+                if (!response.IsSuccessStatusCode)
+                    return false;
+
+                var json = response.Content.ReadAsStringAsync().Result;
+
+                
+                var apiErabiltzaileak = JsonConvert.DeserializeObject<List<Erabiltzaileak>>(json);
+
+               
+                return apiErabiltzaileak.Any(e =>
+                    e.Izena == erabiltzailea &&
+                    e.Pasahitza == pasahitza
+                );
             }
         }
+
     }
 }

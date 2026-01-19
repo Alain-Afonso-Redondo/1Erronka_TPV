@@ -127,7 +127,7 @@
             // EskaerakForm
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(1884, 986);
+            this.ClientSize = new System.Drawing.Size(1059, 540);
             this.Controls.Add(this.picLogo);
             this.Controls.Add(this.lblErabiltzailea);
             this.Controls.Add(this.btnTxat);

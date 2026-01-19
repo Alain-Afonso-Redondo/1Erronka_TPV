@@ -26,6 +26,10 @@ namespace TPV_OSIS.Inbentarioa
             // ====== FRESKATU BOTOIA ======
             this.btnFreskatu.Text = "Freskatu";
             this.btnFreskatu.Size = new System.Drawing.Size(90, 30);
+            this.btnFreskatu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(107)))), ((int)(((byte)(58)))));
+            this.btnFreskatu.FlatAppearance.BorderSize = 0;
+            this.btnFreskatu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFreskatu.ForeColor = System.Drawing.Color.White;
             this.btnFreskatu.Location = new System.Drawing.Point(780, 10);
             this.btnFreskatu.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.btnFreskatu.Cursor = Cursors.Hand;
