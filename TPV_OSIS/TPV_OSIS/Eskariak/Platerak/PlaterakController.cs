@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
+using TPV_OSIS.DTO;
 
 
 namespace TPV_OSIS.Eskariak
@@ -48,26 +49,26 @@ namespace TPV_OSIS.Eskariak
             }
         }
 
-        
+
         // Platerak lortzea kategoriaren arabera
-        public List<Platerak> LortuPlaterakKategoriatik(int kategoriaId)
+        public List<PlaterakDto> LortuPlaterakKategoriatik(int kategoriaId)
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(_baseUrl);
+                client.BaseAddress = new Uri("http://localhost:5000/");
 
-                
                 var response = client.GetAsync($"api/Platerak/kategoria/{kategoriaId}").Result;
 
                 if (!response.IsSuccessStatusCode)
-                    return new List<Platerak>();
+                    return new List<PlaterakDto>();
 
                 var json = response.Content.ReadAsStringAsync().Result;
-                return JsonConvert.DeserializeObject<List<Platerak>>(json);
+                return JsonConvert.DeserializeObject<List<PlaterakDto>>(json);
             }
         }
 
-        
+
+
         // Plater berria sortzea
         public bool SortuPlatera(Platerak platera)
         {

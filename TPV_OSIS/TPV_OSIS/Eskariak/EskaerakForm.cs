@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TPV_OSIS.DTO;
 
 namespace TPV_OSIS.Eskariak
 {
@@ -127,7 +128,7 @@ namespace TPV_OSIS.Eskariak
         }
 
         // ================= KARRITOA =================
-        private void gehituKarritora(Platerak p)
+        private void gehituKarritora(PlaterakDto p)
         {
             if (!JaitsiStock(p.Id, 1))
             {
