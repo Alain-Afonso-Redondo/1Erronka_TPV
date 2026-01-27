@@ -10,9 +10,9 @@ namespace TPV_OSIS.Eskariak
     {
         public virtual int Id { get; set; }
 
-        public virtual int mahaiZenbakia { get; set; }
+        public virtual int MahaiZenbakia { get; set; }
 
-        public virtual int pertsonaKopurua { get; set; }
+        public virtual int PertsonaMax { get; set; }
 
 
     }

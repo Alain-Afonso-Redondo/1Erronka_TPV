@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using TPV_OSIS.Inbentarioa;
 using TPV_OSIS.Menua;
 
 namespace TPV_OSIS
@@ -21,7 +14,7 @@ namespace TPV_OSIS
 
         private void Login_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnSartu_Klik(object sender, EventArgs e)
@@ -34,13 +27,15 @@ namespace TPV_OSIS
 
             if (loginBalidatu)
             {
-                MessageBox.Show("Ondo logeatu zara! Ongi etorri " + erabiltzailea,
-                    "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "Ondo logeatu zara! Ongi etorri " + erabiltzailea,
+                    "Login",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
 
-                
                 var menua = new MenuaForm(erabiltzailea);
                 menua.Show();
-
                 this.Hide();
             }
             else
@@ -50,9 +45,6 @@ namespace TPV_OSIS
             }
         }
 
-        private void pboxLogo_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

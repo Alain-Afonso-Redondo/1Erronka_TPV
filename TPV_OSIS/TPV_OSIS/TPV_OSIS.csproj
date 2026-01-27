@@ -155,8 +155,22 @@
     <Compile Include="DTO\StockAldaketaDto.cs" />
     <Compile Include="DTO\PlaterakDto.cs" />
     <Compile Include="Erabiltzaileak\ErabiltzaileController.cs" />
-    <Compile Include="Eskariak\Erreserbak\ErreserbakController.cs" />
-    <Compile Include="Eskariak\Erreserbak\Erreserbak.cs" />
+    <Compile Include="Eskariak\ErreserbaMahai\ErreserbaMahaiController.cs" />
+    <Compile Include="Eskariak\ErreserbaMahai\ErreserbaMahai.cs" />
+    <Compile Include="Eskariak\Erreserba\ErreserbakController.cs" />
+    <Compile Include="Eskariak\Erreserba\Erreserba.cs" />
+    <Compile Include="Eskariak\Erreserba\ErreserbakForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Eskariak\Erreserba\ErreserbakForm.Designer.cs">
+      <DependentUpon>ErreserbakForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Eskariak\Erreserba\ErreserbatuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Eskariak\Erreserba\ErreserbatuForm.Designer.cs">
+      <DependentUpon>ErreserbatuForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Eskariak\EskaerakForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +182,12 @@
     <Compile Include="Eskariak\Karritoa.cs" />
     <Compile Include="Eskariak\Kategoriak\KategoriakController.cs" />
     <Compile Include="Eskariak\Komandak\KomandakController.cs" />
+    <Compile Include="Eskariak\Mahaiak\MahaiakForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Eskariak\Mahaiak\MahaiakForm.Designer.cs">
+      <DependentUpon>MahaiakForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Eskariak\Mahaiak\MahaiakController.cs" />
     <Compile Include="Eskariak\Mahaiak\Mahaiak.cs" />
     <Compile Include="Eskariak\Platerak\PlaterakController.cs" />
@@ -205,8 +225,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Eskariak\Erreserba\ErreserbakForm.resx">
+      <DependentUpon>ErreserbakForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Eskariak\Erreserba\ErreserbatuForm.resx">
+      <DependentUpon>ErreserbatuForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Eskariak\EskaerakForm.resx">
       <DependentUpon>EskaerakForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Eskariak\Mahaiak\MahaiakForm.resx">
+      <DependentUpon>MahaiakForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

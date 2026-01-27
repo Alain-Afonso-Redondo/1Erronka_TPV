@@ -43,6 +43,7 @@ namespace TPV_OSIS.Inbentarioa
 
             // ====== FORM ======
             this.ClientSize = new System.Drawing.Size(900, 500);
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Controls.Add(this.btnFreskatu);
             this.Controls.Add(this.flpOsagaiak);
             this.StartPosition = FormStartPosition.CenterScreen;

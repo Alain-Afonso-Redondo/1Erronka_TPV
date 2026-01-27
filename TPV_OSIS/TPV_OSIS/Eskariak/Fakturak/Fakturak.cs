@@ -1,4 +1,6 @@
-﻿namespace TPV_OSIS.Eskariak {
+﻿using TPV_OSIS.Eskariak.Erreserbak;
+
+namespace TPV_OSIS.Eskariak {
     public class Fakturak
     {
         public virtual int Id { get; set; }
@@ -6,6 +8,6 @@
         public virtual bool Egoera { get; set; }
         public virtual byte[] FakturaPdf { get; set; }
 
-        public virtual Erreserbak Erreserbak { get; set; }
+        public virtual Erreserba Erreserbak { get; set; }
     }
 }

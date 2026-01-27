@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TPV_OSIS.Eskariak;
+using TPV_OSIS.Eskariak.Erreserbak;
 using TPV_OSIS.Inbentarioa;
 
 namespace TPV_OSIS.Menua
@@ -18,7 +19,7 @@ namespace TPV_OSIS.Menua
         public MenuaForm(string erabiltzailea)
         {
             InitializeComponent();
-            this.erabiltzailea = erabiltzailea;
+            this.erabiltzailea = erabiltzailea; 
         }
 
         private void btnInbentarioa_Click(object sender, EventArgs e)
@@ -28,7 +29,14 @@ namespace TPV_OSIS.Menua
 
         private void btnEskaria_Click(object sender, EventArgs e)
         {
-            new EskaerakForm(erabiltzailea).Show();
+            
+            new MahaiakForm(erabiltzailea).Show();
+        }
+
+        private void btnErreserba_Click(object sender, EventArgs e)
+        {
+
+            new ErreserbakForm().Show();
         }
 
     }

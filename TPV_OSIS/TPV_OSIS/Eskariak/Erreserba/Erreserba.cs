@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Antlr.Runtime.Tree;
+using System;
+using System.Collections.Generic;
+
 
 namespace TPV_OSIS.Eskariak
 {
-    public class Erreserbak
+    public class Erreserba
     {
         public virtual int Id { get; set; }
         public virtual string Izena { get; set; }
@@ -10,5 +13,9 @@ namespace TPV_OSIS.Eskariak
         public virtual string Txanda { get; set; }
         public virtual int PertsonaKopurua { get; set; }
         public virtual DateTime Data { get; set; }
+
+        public virtual List<Mahaiak> Mahaiak { get; set; } = new List<Mahaiak>();
+
+
     }
 }
