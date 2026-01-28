@@ -167,6 +167,7 @@
             this.btnEzabatu.Size = new System.Drawing.Size(120, 40);
             this.btnEzabatu.TabIndex = 6;
             this.btnEzabatu.Text = "EZABATU";
+            this.btnEzabatu.Click += new System.EventHandler(this.btnEzabatu_Click);
             // 
             // btnFreskatu
             // 

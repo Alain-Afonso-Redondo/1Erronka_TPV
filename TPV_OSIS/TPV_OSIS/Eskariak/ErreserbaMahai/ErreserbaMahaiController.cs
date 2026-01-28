@@ -80,6 +80,21 @@ namespace TPV_OSIS.Eskariak
             }
         }
 
+        public bool EzabatuMahaiakErreserbatik(int erreserbaId)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_baseUrl);
+
+                var response = client.DeleteAsync(
+                    $"api/ErreserbaMahaiak/erreserba/{erreserbaId}"
+                ).Result;
+
+                return response.IsSuccessStatusCode;
+            }
+        }
+
+
 
     }
 }

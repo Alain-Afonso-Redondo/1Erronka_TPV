@@ -231,6 +231,43 @@ namespace TPV_OSIS.Eskariak.Erreserbak
             f.ShowDialog();
         }
 
+        private void btnEzabatu_Click(object sender, EventArgs e)
+        {
+            if (_erreserbaHautatua == null)
+                return;
+
+            var konfirmazioa = MessageBox.Show(
+                $"Ziur zaude erreserba ezabatu nahi duzula?\n\n{_erreserbaHautatua.Izena}",
+                "Erreserba ezabatu",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (konfirmazioa != DialogResult.Yes)
+                return;
+
+            var erreserbaCtrl = new ErreserbakController();
+
+            bool ondoEzabatua =
+                erreserbaCtrl.EzabatuErreserba(_erreserbaHautatua.Id);
+
+            if (!ondoEzabatua)
+            {
+                MessageBox.Show("Errorea erreserba ezabatzean");
+                return;
+            }
+
+            MessageBox.Show("Erreserba behar bezala ezabatua");
+
+            _erreserbaHautatua = null;
+            btnEditatu.Enabled = false;
+            btnEzabatu.Enabled = false;
+
+            KargatuDena();
+        }
+
+
+
         private void btnFreskatu_Click(Object sender, EventArgs e)
         {
             KargatuDena();

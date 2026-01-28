@@ -98,5 +98,6 @@ namespace TPV_OSIS.Eskariak
                 return response.IsSuccessStatusCode;
             }
         }
+
     }
 }
