@@ -47,7 +47,7 @@
             this.ClientSize = new System.Drawing.Size(900, 650);
             this.BackColor = System.Drawing.Color.FromArgb(245, 245, 245);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.Load += new System.EventHandler(this.ErreserbakForm_Load);
+            this.Load += new System.EventHandler(this.ErreserbatuForm_Load);
 
             // ===== CARD PANEL =====
             this.panelCard.Size = new System.Drawing.Size(520, 540);

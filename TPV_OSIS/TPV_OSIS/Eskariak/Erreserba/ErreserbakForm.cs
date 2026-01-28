@@ -231,5 +231,10 @@ namespace TPV_OSIS.Eskariak.Erreserbak
             f.ShowDialog();
         }
 
+        private void btnFreskatu_Click(Object sender, EventArgs e)
+        {
+            KargatuDena();
+        }
+
     }
 }

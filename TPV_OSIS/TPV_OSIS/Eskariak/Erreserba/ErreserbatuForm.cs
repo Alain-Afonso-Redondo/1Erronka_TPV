@@ -8,33 +8,31 @@ namespace TPV_OSIS.Eskariak
 {
     public partial class ErreserbatuForm : Form
     {
-        
         private string txandaAukeratua = null;
+
         private bool _editatzen = false;
         private Erreserba _erreserbaEditatzen = null;
         private int? _mahaiEditatuaId = null;
 
-        
-
-        
+       
         public ErreserbatuForm()
         {
             InitializeComponent();
+            _editatzen = false;
         }
 
-       
         public ErreserbatuForm(Erreserba erreserba)
         {
             InitializeComponent();
-
             _editatzen = true;
             _erreserbaEditatzen = erreserba;
         }
 
-        
-        private void ErreserbakForm_Load(object sender, EventArgs e)
+       
+        private void ErreserbatuForm_Load(object sender, EventArgs e)
         {
             dtpData.MinDate = DateTime.Today;
+            dtpData.Value = DateTime.Today;
 
             cboxBazkaria.Click += (s, ev) => AukeratuTxanda("Bazkaria");
             cboxAfaria.Click += (s, ev) => AukeratuTxanda("Afaria");
@@ -49,10 +47,12 @@ namespace TPV_OSIS.Eskariak
         
         private void KargatuDatuakEdizioan()
         {
+            dtpData.MinDate = new DateTime(1753, 1, 1);
+            dtpData.Value = _erreserbaEditatzen.Data;
+
             txtIzena.Text = _erreserbaEditatzen.Izena;
             txtTelefonoa.Text = _erreserbaEditatzen.Telefonoa;
             txtPertsonak.Text = _erreserbaEditatzen.PertsonaKopurua.ToString();
-            dtpData.Value = _erreserbaEditatzen.Data;
 
             AukeratuTxanda(_erreserbaEditatzen.Txanda);
 
@@ -62,6 +62,17 @@ namespace TPV_OSIS.Eskariak
 
             if (mahaiIds.Any())
                 _mahaiEditatuaId = mahaiIds.First();
+        }
+
+        
+        private bool DataEdoTxandaAldaketa()
+        {
+            if (!_editatzen || _erreserbaEditatzen == null)
+                return false;
+
+            return
+                dtpData.Value.Date != _erreserbaEditatzen.Data.Date ||
+                txandaAukeratua != _erreserbaEditatzen.Txanda;
         }
 
         // ================= TXANDA =================
@@ -80,7 +91,7 @@ namespace TPV_OSIS.Eskariak
             KargatuMahaiLibre();
         }
 
-        // ================= MAHAIAK =================
+        // ================= MAHAIAK LIBRE =================
         private void KargatuMahaiLibre()
         {
             cmbMahaiak.DataSource = null;
@@ -110,9 +121,15 @@ namespace TPV_OSIS.Eskariak
                 .Distinct()
                 .ToList();
 
+            bool mantenduMahaiaEditatzen =
+                _editatzen &&
+                _mahaiEditatuaId != null &&
+                !DataEdoTxandaAldaketa();
+
             var libre = mahaiGuztiak
                 .Where(m =>
-                    (!mahaiOkupatuak.Contains(m.Id) || m.Id == _mahaiEditatuaId) &&
+                    (!mahaiOkupatuak.Contains(m.Id) ||
+                     (mantenduMahaiaEditatzen && m.Id == _mahaiEditatuaId)) &&
                     m.PertsonaMax >= pertsonak)
                 .ToList();
 
@@ -120,7 +137,7 @@ namespace TPV_OSIS.Eskariak
             cmbMahaiak.DisplayMember = "MahaiZenbakia";
             cmbMahaiak.ValueMember = "Id";
 
-            if (_mahaiEditatuaId != null)
+            if (mantenduMahaiaEditatzen)
                 cmbMahaiak.SelectedValue = _mahaiEditatuaId;
         }
 
@@ -147,7 +164,7 @@ namespace TPV_OSIS.Eskariak
             var erreserbaCtrl = new ErreserbakController();
             var erreserbaMahaiCtrl = new ErreserbaMahaiController();
 
-            // ======== EDITATU ========
+            // ===== EDITATU =====
             if (_editatzen)
             {
                 _erreserbaEditatzen.Izena = txtIzena.Text.Trim();
