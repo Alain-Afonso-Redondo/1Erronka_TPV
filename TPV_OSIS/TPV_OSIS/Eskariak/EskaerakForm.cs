@@ -10,12 +10,15 @@ namespace TPV_OSIS.Eskariak
     public partial class EskaerakForm : Form
     {
         private string erabiltzailea;
+        private int _fakturaId;
+
         private List<Karritoa> karritoa = new List<Karritoa>();
 
-        public EskaerakForm(string erabiltzailea)
+        public EskaerakForm(string erabiltzailea, int fakturaId)
         {
             InitializeComponent();
             this.erabiltzailea = erabiltzailea;
+            _fakturaId = fakturaId;
         }
 
         private void EskaerakForm_Load(object sender, EventArgs e)
@@ -247,7 +250,7 @@ namespace TPV_OSIS.Eskariak
             foreach (var produktuKarrito in karritoa)
             {
                 bool ok = komandaController.SortuKomanda(
-                    fakturaId: 1,
+                    fakturaId: _fakturaId,
                     platerId: produktuKarrito.PlaterakId,
                     kopurua: produktuKarrito.Kopurua
                 );
@@ -259,9 +262,7 @@ namespace TPV_OSIS.Eskariak
                 }
             }
 
-            var fakturaController = new FakturakController();
-
-            fakturaController.EguneratuTotala(1, karritoa.Sum(c => c.Totala));
+            
 
             MessageBox.Show("Komanda behar bezala eginda");
 
@@ -269,6 +270,8 @@ namespace TPV_OSIS.Eskariak
             eguneratuKarritoa();
             flpPlaterak.Controls.Clear();
         }
+
+
 
         private void btnTxat_Click(object sender, EventArgs e)
         {
