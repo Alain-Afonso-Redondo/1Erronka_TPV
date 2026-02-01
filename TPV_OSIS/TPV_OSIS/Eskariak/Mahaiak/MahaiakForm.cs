@@ -148,6 +148,13 @@ namespace TPV_OSIS.Eskariak
                     panel.BackColor = Color.FromArgb(255, 230, 230); // OKUPATUTA
                     panel.Cursor = Cursors.Hand;
 
+                   
+                    var lblEgoera = panel.Tag as Label;
+                    if (lblEgoera != null)
+                    {
+                        lblEgoera.Text = "OKUPATUTA";
+                        lblEgoera.ForeColor = Color.FromArgb(160, 40, 40);
+                    }
 
                     panel.Click += (s, e) =>
                     {
@@ -158,6 +165,7 @@ namespace TPV_OSIS.Eskariak
                         _mahaiHautatuaId = mahai.Id;
                     };
                 }
+
                 else
                 {
                     panel.BackColor = Color.FromArgb(235, 235, 235); // EZ DISPONIBLE
@@ -211,12 +219,16 @@ namespace TPV_OSIS.Eskariak
                 TextAlign = ContentAlignment.BottomRight
             };
 
+            
+            p.Tag = lblEgoera;
+
             p.Controls.Add(lblEgoera);
             p.Controls.Add(lblPertsonaMax);
             p.Controls.Add(lblMahaiZenbakia);
 
             return p;
         }
+
 
         // ================= AUKERATU MAHAIA =================
         private void btnAukeratu_Click(object sender, EventArgs e)

@@ -9,7 +9,7 @@ namespace TPV_OSIS.Eskariak
 {
     internal class FakturakController
     {
-        private readonly string _baseUrl = "http://localhost:5000/";
+        private readonly string _baseUrl = "http://192.168.2.101:5000/";
 
         // ================== GET GUZTIAK ==================
         public List<Fakturak> LortuFakturak()
@@ -119,7 +119,34 @@ namespace TPV_OSIS.Eskariak
                 
         }
 
-        
+        //public string SortuTiketa(int fakturaId, double jasotakoa, string ordainketaModua)
+        //{
+        //    using (var client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri(_baseUrl);
+
+        //        var dto = new
+        //        {
+        //            FakturaId = fakturaId,
+        //            Jasotakoa = jasotakoa,
+        //            OrdainketaModua = ordainketaModua
+        //        };
+
+        //        var json = JsonConvert.SerializeObject(dto);
+        //        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        //        var response = client.PostAsync("api/Fakturak/sortu-tiketa", content).Result;
+        //        if (!response.IsSuccessStatusCode)
+        //            return null;
+
+        //        return response.Content.ReadAsStringAsync().Result
+        //            .Replace("\"", "");
+        //    }
+            
+        //}
+
+
+
 
     }
 }

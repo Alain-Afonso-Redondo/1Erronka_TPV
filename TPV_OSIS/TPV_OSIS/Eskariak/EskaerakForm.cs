@@ -269,6 +269,26 @@ namespace TPV_OSIS.Eskariak
             karritoa.Clear();
             eguneratuKarritoa();
             flpPlaterak.Controls.Clear();
+
+
+            //var fakturaCtrl = new FakturakController();
+
+            //string ruta = fakturaCtrl.SortuTiketa(
+            //    _fakturaId,
+            //    jasotakoa: karritoa.Sum(c => c.Totala),
+            //    ordainketaModua: "Eskudirua"
+            //);
+
+            //if (!string.IsNullOrEmpty(ruta))
+            //{
+            //    System.Diagnostics.Process.Start(
+            //        new System.Diagnostics.ProcessStartInfo
+            //        {
+            //            FileName = "" + ruta,
+            //            UseShellExecute = true
+            //        });
+            //}
+
         }
 
 

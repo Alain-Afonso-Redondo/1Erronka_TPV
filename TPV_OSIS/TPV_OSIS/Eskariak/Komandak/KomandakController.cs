@@ -9,7 +9,7 @@ namespace TPV_OSIS.Eskariak
 {
     internal class KomandakController
     {
-        private readonly string _baseUrl = "http://localhost:5000/";
+        private readonly string _baseUrl = "http://192.168.2.101:5000/";
 
         
         // API-tik Komanda guztiak lortzea
@@ -55,7 +55,7 @@ namespace TPV_OSIS.Eskariak
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:5000/");
+                client.BaseAddress = new Uri("http://192.168.2.101:5000/");
 
                 var body = new
                 {

@@ -7,7 +7,7 @@ namespace TPV_OSIS.Inbentarioa
 {
     internal class OsagaiakController
     {
-        private readonly string _baseUrl = "http://localhost:5000/";
+        private readonly string _baseUrl = "http://192.168.2.101:5000/";
 
         // API-tik osagai guztiak lortzea
         public List<Osagaiak> LortuOsagaiak()
